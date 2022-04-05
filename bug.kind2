@@ -1,0 +1,8 @@
+Nat : Type
+  Nat.zero : Nat
+  (Nat.succ pred:Nat) : Nat
+
+// Variadic
+(Variadic n:Nat a:Type t:Type): Type
+  (Variadic Nat.zero a t) = t
+  (Variadic (Nat.succ pred) a t) = ∀(x:a) (Variadic pred a t)

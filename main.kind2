@@ -62,3 +62,18 @@ Bool : Type
 (Bool.or_and_th a:Bool b:Bool c:Bool) : (Bool.or a (Bool.and b c)) == (Bool.and (Bool.or a b) (Bool.or a c))
   (Bool.or_and_th True b c) = refl True
   (Bool.or_and_th False b c) = refl (Bool.and b c)
+
+// Nat
+Nat : Type
+  (Nat.zero) : Nat
+  (Nat.succ pred:Nat) : Nat
+
+// Variadic
+//(Variadic n:Nat a:Type t:Type): Type
+//  (Variadic Nat.zero a t) = t
+//  (Variadic (Nat.succ pred) a t) = ∀(x:a) (Variadic pred a t)
+
+// OpExp
+OpExp : Type
+  (OpExp.op a:OpExp b:OpExp) : OpExp
+  (OpExp.var) : OpExp
