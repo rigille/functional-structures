@@ -1,0 +1,64 @@
+Bool : Type
+  True : Bool
+  False : Bool
+
+(Bool.not b:Bool) : Bool
+  (Bool.not True) = False
+  (Bool.not False) = True
+
+(Bool.and a:Bool b:Bool) : Bool
+  (Bool.and False b) = False
+  (Bool.and True b) = b
+
+(Bool.or a:Bool b:Bool) : Bool
+  (Bool.or True b) = True
+  (Bool.or False b) = b
+
+// Not-Not Theorem
+(Bool.not_not_th b:Bool) : (Bool.not (Bool.not b)) == b
+  (Bool.not_not_th True) = refl True
+  (Bool.not_not_th False) = refl False
+
+// Not-And Theorem
+(Bool.not_and_th a:Bool b:Bool) : (Bool.not (Bool.and a b)) == (Bool.or (Bool.not a) (Bool.not b))
+  (Bool.not_and_th False b) = refl True
+  (Bool.not_and_th True b) = refl (Bool.not b)
+
+// Not-Or Theorem
+(Bool.not_or_th a:Bool b:Bool) : (Bool.not (Bool.or a b)) == (Bool.and (Bool.not a) (Bool.not b))
+  (Bool.not_or_th True b) = refl False
+  (Bool.not_or_th False b) = refl (Bool.not b)
+
+// And is commutative
+(Bool.and_comm_th a:Bool b:Bool) : (Bool.and a b) == (Bool.and b a)
+  (Bool.and_comm_th True True) = refl True
+  (Bool.and_comm_th True False) = refl False
+  (Bool.and_comm_th False True) = refl False
+  (Bool.and_comm_th False False) = refl False
+
+// And is associative
+(Bool.and_assoc_th a:Bool b:Bool c:Bool) : (Bool.and (Bool.and a b) c) == (Bool.and a (Bool.and b c))
+  (Bool.and_assoc_th True b c) = refl (Bool.and b c)
+  (Bool.and_assoc_th False b c) = refl False
+
+// Or is associative
+(Bool.or_assoc_th a:Bool b:Bool c:Bool) : (Bool.or (Bool.or a b) c) == (Bool.or a (Bool.or b c))
+  (Bool.or_assoc_th True b c) = refl True
+  (Bool.or_assoc_th False b c) = refl (Bool.or b c)
+
+// Or is commutative
+(Bool.or_comm_th a:Bool b:Bool) : (Bool.or a b) == (Bool.or b a)
+  (Bool.or_comm_th True True) = refl True
+  (Bool.or_comm_th True False) = refl True
+  (Bool.or_comm_th False True) = refl True
+  (Bool.or_comm_th False False) = refl False
+
+// And-Or theorem
+(Bool.and_or_th a:Bool b:Bool c:Bool) : (Bool.and a (Bool.or b c)) == (Bool.or (Bool.and a b) (Bool.and a c))
+  (Bool.and_or_th False b c) = refl False
+  (Bool.and_or_th True b c) = refl (Bool.or b c)
+
+// Or-And theorem
+(Bool.or_and_th a:Bool b:Bool c:Bool) : (Bool.or a (Bool.and b c)) == (Bool.and (Bool.or a b) (Bool.or a c))
+  (Bool.or_and_th True b c) = refl True
+  (Bool.or_and_th False b c) = refl (Bool.and b c)
